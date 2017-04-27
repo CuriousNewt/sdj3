@@ -11,7 +11,7 @@ public class Box {
 	public String getName(){
 		return itemName;
 	}
-	//asd
+	//leonard je vymasteny kokot
 	public String getType(){
 		return itemType;
 	}
