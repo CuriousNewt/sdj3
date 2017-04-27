@@ -11,7 +11,7 @@ public class Box {
 	public String getName(){
 		return itemName;
 	}
-	//as
+	//asd
 	public String getType(){
 		return itemType;
 	}
