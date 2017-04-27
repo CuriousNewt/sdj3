@@ -20,7 +20,7 @@ public class Box {
 	public String getItemType() {
 		return itemType;
 	}
-	//skurvenyleonajqwdqwjkghbhnnjqwdwanyadgKURVAFIX
+	//skurvenyleonajqwdqwjkghbhnnjqwdwanyadgKURVAFIXKURVA
 	public void setItemType(String itemType) {
 		this.itemType = itemType;
 	}
