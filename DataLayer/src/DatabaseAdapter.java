@@ -1,17 +1,20 @@
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class DatabaseAdapter implements IDatabaseAdapter{
+public class DatabaseAdapter extends UnicastRemoteObject implements IDatabaseAdapter,IRmiServer{
 	
-	
+
+	private static final long serialVersionUID = 1L;
 	private Database db;
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 	private static final String USER = "postgres";
 	private static final String PASSWORD = "dendo1643";
 	
 	
-	public DatabaseAdapter() {
+	public DatabaseAdapter() throws RemoteException {
 		try {
 			this.db = new Database(URL, USER, PASSWORD);
 		} catch (ClassNotFoundException e) {
@@ -27,9 +30,6 @@ public class DatabaseAdapter implements IDatabaseAdapter{
 	@Override
 	public void storeBox(Box box) {
 		
-		 
-		 
-		
 		String sql = "INSERT INTO public.warehouse(itemName,itemType)" + "VALUES(?,?);";
 		
 		try {
@@ -37,7 +37,6 @@ public class DatabaseAdapter implements IDatabaseAdapter{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 
@@ -75,7 +74,28 @@ public class DatabaseAdapter implements IDatabaseAdapter{
 		
 		
 	}
-	
+
+
+	@Override
+	public void remoteStoreBox(Box box) throws RemoteException {
+		this.storeBox(box);
+	}
+
+
+	@Override
+	public void remoteRemoveBox(Box box) throws RemoteException {
+		this.removeBox(box);
+		
+	}
+
+
+	@Override
+	public void remoteViewAllBoxes(String itemName) throws RemoteException {
+		this.viewAllBoxes(itemName);
+		
+	}
+
+
 	
 	
 	//other methods that specifically return desired items
