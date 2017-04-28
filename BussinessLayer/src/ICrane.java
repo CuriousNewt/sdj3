@@ -1,8 +1,9 @@
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 
 public interface ICrane extends Remote{
 
-	public void sayHello(String msg);
+	public String sayHello(String msg) throws RemoteException;
 	
 }

@@ -12,8 +12,8 @@ public class Crane extends UnicastRemoteObject implements ICrane{
 	}
 
 	@Override
-	public void sayHello(String msg) {
-		// TODO Auto-generated method stub
+	public String sayHello(String msg) throws RemoteException{
+		return "From server: " + msg;
 		
 	}
 	
