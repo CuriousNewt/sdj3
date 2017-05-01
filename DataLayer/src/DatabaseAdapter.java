@@ -1,4 +1,7 @@
+import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,6 +15,7 @@ public class DatabaseAdapter extends UnicastRemoteObject implements IDatabaseAda
 	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
 	private static final String USER = "postgres";
 	private static final String PASSWORD = "dendo1643";
+	private IRmiClient crane;
 	
 	
 	public DatabaseAdapter() throws RemoteException {
@@ -74,8 +78,7 @@ public class DatabaseAdapter extends UnicastRemoteObject implements IDatabaseAda
 		
 		
 	}
-
-
+	
 	@Override
 	public void remoteStoreBox(Box box) throws RemoteException {
 		this.storeBox(box);
@@ -95,6 +98,79 @@ public class DatabaseAdapter extends UnicastRemoteObject implements IDatabaseAda
 		
 	}
 
+
+	@Override
+	public void registerClient(IRmiClient client) throws RemoteException {
+		this.crane = client;
+	}
+
+	
+	public static void main(String[] args) {
+		try {
+			LocateRegistry.createRegistry(1099);
+			IRmiServer server = new DatabaseAdapter();
+			Naming.rebind("RMI", server);
+			System.out.println("Starting server...");
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	/*	try {
+			IRmiServer s = new DatabaseAdapter();
+			Box box = new Box("Sausages","Meat");
+			Box box2 = s.findBox(box);
+			System.out.println(box2 + "Je to spravne.");
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+	}
+
+	//called on clients side, stores the sent object to database
+	@Override
+	public Box handleClientRequestAndSaveIntoDatabase(Box box) throws RemoteException {
+		System.out.println("Here.");
+		crane.succesfulDelivery(box);
+		this.remoteStoreBox(box);
+		return box;
+	}
+
+
+	@Override
+	public Box findBox(Box box) throws RemoteException {
+		
+		String sql = "SELECT * FROM public.warehouse WHERE itemName = ? AND itemType = ?;";
+		ArrayList<Object[]> results;
+		try {
+			results = db.query(sql, box.getItemName(),box.getItemType());
+			
+			for(int i = 0; i < results.size();){
+				Object[] row = results.get(i);
+				Box boxToReturn = new Box(row[0].toString(),row[1].toString());
+				return boxToReturn;
+			
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//the box doesn't exist
+		return null;
+	}
+
+
+	@Override
+	public Box handleClientRequestAndSendBackABox(Box box) throws RemoteException {
+		Box toSendBack = this.findBox(box);
+		this.crane.acceptOrderFromServer(toSendBack);
+		return toSendBack;
+	}
 
 	
 	

@@ -27,5 +27,10 @@ public class Box implements Serializable{
 	public void setItemType(String itemType) {
 		this.itemType = itemType;
 	}
+	
+	public String toString(){
+		
+		return "Item name: " + itemName + "\nItem type: " + itemType;
+	}
 
 }
