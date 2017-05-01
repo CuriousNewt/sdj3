@@ -9,12 +9,14 @@ public class Crane extends UnicastRemoteObject implements IRmiClient{
  
 	private static final long serialVersionUID = 1L;
 	private IRmiServer databaseAdapter;
+	private IConveyorQueue<Box> queue;
 
 	protected Crane() throws RemoteException {
 		super();
 		try {
 			databaseAdapter = (IRmiServer) Naming.lookup("rmi://localhost:1099/RMI");
 			databaseAdapter.registerClient(this);
+			queue = new ConveyorQueue<Box>();
 		} catch (MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,6 +65,7 @@ public class Crane extends UnicastRemoteObject implements IRmiClient{
 	@Override
 	public Box requestOrderFromWarehouse(Box box) throws RemoteException {
 		this.databaseAdapter.handleClientRequestAndSendBackABox(box);
+		//queue.enqueue(box);
 		return box;
 	}
 

@@ -1,7 +1,7 @@
 
 import java.io.Serializable;
 
-public class ConveyorQueue<T> implements QueueADT<T>, Serializable {
+public class ConveyorQueue<T> implements IConveyorQueue<T>, Serializable {
 	/**
 	 * 
 	 */
@@ -10,12 +10,14 @@ public class ConveyorQueue<T> implements QueueADT<T>, Serializable {
 	private int count;
 	private T[] queue;
 
+	@SuppressWarnings("unchecked")
 	public ConveyorQueue(int capacity) {
 		this.front = 0;
 		this.count = 0;
 		this.queue = (T[]) new Object[capacity];
 	}
 
+	@SuppressWarnings("unchecked")
 	public ConveyorQueue() {
 		this.front = 0;
 		this.count = 0;

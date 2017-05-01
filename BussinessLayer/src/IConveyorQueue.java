@@ -1,4 +1,4 @@
-public interface QueueADT<T> {
+public interface IConveyorQueue<T> {
 	public void enqueue(T element);
 	public T dequeue();
 	public T first();
