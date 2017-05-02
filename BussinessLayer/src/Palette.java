@@ -10,8 +10,18 @@ public class Palette {
 	}
 
 	public void addBoxToPalette(Box box) {
-		this.boxes[index] = box;
-		index++;
+		if(index < maxNumberOfBoxes){
+			this.boxes[index] = box;
+			index++;
+		}
+	}
+
+	public Box[] getBoxes() {
+		return boxes;
+	}
+
+	public int getMaxNumberOfBoxes() {
+		return maxNumberOfBoxes;
 	}
 
 	public void addMoreBoxes(Box[] boxes) {
@@ -30,5 +40,15 @@ public class Palette {
 	// delete if not needed
 	public Box getBox(int index) {
 		return boxes[index];
+	}
+	
+	public String toString(){
+		String s = "";
+		
+		for (int i = 0; i < boxes.length; i++) {
+			s += boxes[i] + "\n";
+		}
+		
+		return s;
 	}
 }

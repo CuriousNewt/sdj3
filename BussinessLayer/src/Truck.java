@@ -37,5 +37,9 @@ public class Truck {
 			p[i] = null;
 		}
 	}
+	
+	public int getCountOfPalettes(){
+		return this.palettes.length;
+	}
 
 }
