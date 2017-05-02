@@ -39,6 +39,7 @@ public class ArrivalStation extends Station {
 		
 	}
 
+	@Override
 	public Truck getTruck() {
 		return truck;
 	}

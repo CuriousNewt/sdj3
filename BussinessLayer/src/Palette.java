@@ -1,7 +1,6 @@
-
 public class Palette {
 	private Box[] boxes;
-	private final int maxNumberOfBoxes = 10;
+	private final int maxNumberOfBoxes = 2;
 	private int index;
 
 	public Palette() {
@@ -10,7 +9,7 @@ public class Palette {
 	}
 
 	public void addBoxToPalette(Box box) {
-		if(index < maxNumberOfBoxes){
+		if (index < maxNumberOfBoxes) {
 			this.boxes[index] = box;
 			index++;
 		}
@@ -41,14 +40,43 @@ public class Palette {
 	public Box getBox(int index) {
 		return boxes[index];
 	}
-	
-	public String toString(){
-		String s = "";
-		
+
+	public String toString() {
+		String s = "This is a palette: \n";
+
 		for (int i = 0; i < boxes.length; i++) {
 			s += boxes[i] + "\n";
 		}
-		
+
 		return s;
+	}
+
+	public int getCount() {
+		return index;
+	}
+
+	public boolean isFull() {
+		return this.index >= this.boxes.length;
+	}
+
+	/*public void transferBox(Palette p) {
+		int tempIndex = 0;
+		if (!isFull()) {
+			for (int i = index; i < this.boxes.length; i++) {
+				this.boxes[i] = p.getBox(tempIndex);
+				index++;
+				tempIndex++;
+			}
+		}
+	}
+*/
+	public void transfer(Box box){
+		
+		if(!isFull()){
+			for(int i = index; i < this.boxes.length; i++){
+				this.boxes[i] = box;
+				index++;
+			}
+		}
 	}
 }

@@ -6,7 +6,7 @@ public class Truck {
 	
 	
 	public Truck(){
-	   this.palettes = new Palette[15];
+	   this.palettes = new Palette[3];
 	   this.index = 0;
 	}
 	
@@ -40,6 +40,24 @@ public class Truck {
 	
 	public int getCountOfPalettes(){
 		return this.palettes.length;
+	}
+	
+	public Palette[] getPalletes(){
+		return this.palettes;
+	}
+	
+	public Palette getPalette(int index){
+		return this.palettes[index];
+	}
+	
+	public int getActualCount(){
+		return index;
+	}
+	
+	public void print(){ //test method
+		for (int i = 0; i < palettes.length; i++) {
+			System.out.println(i + " " + palettes[i]);
+		}
 	}
 
 }

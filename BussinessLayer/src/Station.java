@@ -8,6 +8,7 @@ public abstract class Station {
 		
 	}
 	
+	public abstract Truck getTruck();
 	public abstract void loadCargo();
 	public abstract void getAndUnloadCargo();
 	public abstract void extractAllPalettes();
