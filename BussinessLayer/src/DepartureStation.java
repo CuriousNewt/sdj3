@@ -120,18 +120,4 @@ public class DepartureStation extends Station {
 		return this.truck.getActualCount() < this.truck.getCountOfPalettes();
 	}
 
-	private Palette makeAPalette() {
-
-		Palette p = new Palette();
-
-		for (int i = 0; i < boxes.size(); i++) {
-			if (boxes.get(i) != null) {
-				p.addBoxToPalette(boxes.get(i));
-				boxes.remove(i);
-			}
-		}
-
-		return p;
-	}
-
 }
