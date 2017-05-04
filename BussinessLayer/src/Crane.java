@@ -5,18 +5,23 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 
-public class Crane extends UnicastRemoteObject implements IRmiClient{
+public class Crane implements IRmiClient,Runnable{
  
+	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	private IRmiServer databaseAdapter;
 	private IConveyorQueue<Box> queue;
+	private ICraneController controller;
 
-	protected Crane() throws RemoteException {
+	protected Crane(IConveyorQueue<Box> queue) throws RemoteException {
 		super();
 		try {
+			UnicastRemoteObject.exportObject(this,0);
 			databaseAdapter = (IRmiServer) Naming.lookup("rmi://localhost:1099/RMI");
 			databaseAdapter.registerClient(this);
-			queue = new ConveyorQueue<Box>();
+			this.queue = queue;
+			this.controller = new CraneController(this.queue);
+		
 		} catch (MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -25,23 +30,23 @@ public class Crane extends UnicastRemoteObject implements IRmiClient{
 	}
 
 
-	private Box createBox(String itemName, String itemType)
+	/*private Box createBox(String itemName, String itemType)
 			throws RemoteException {
 
 		return new Box(itemName, itemType);
 	}
-
+*/
 	//actual method that sends a box to server side and the server stores into database
 	@Override
-	public Box sendOrderToWarehouse() throws RemoteException {
-		Box box = createBox("Sausages", "Meat");
+	public Box sendOrderToWarehouse(Box box) throws RemoteException {
+		
 		databaseAdapter.handleClientRequestAndSaveIntoDatabase(box);
 		return box;
 	}
 	
 	public static void main(String[] args) {
 		try {
-			IRmiClient crane = new Crane();
+			IRmiClient crane = new Crane(new ConveyorQueue<Box>());
 			//crane.sendOrderToWarehouse();
 			
 			Box wantedBox = crane.requestOrderFromWarehouse(new Box("Sausages", "Meat"));
@@ -73,6 +78,34 @@ public class Crane extends UnicastRemoteObject implements IRmiClient{
 	@Override
 	public Box acceptOrderFromServer(Box box) throws RemoteException {
 		return box;
+	}
+
+
+
+	@Override
+	public void run() {
+	
+		while(true){
+			if(this.queue.first().arrivingBox){
+				try {
+					this.sendOrderToWarehouse(this.controller.getBoxFromBelt());
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else{
+				//client request
+			}
+		}
+		
 	}
 
 	

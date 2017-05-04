@@ -5,4 +5,5 @@ public interface IConveyorQueue<T> {
 	public int indexOf(T element);
 	public boolean isEmpty();
 	public int size();
+	public boolean isFull();
 }

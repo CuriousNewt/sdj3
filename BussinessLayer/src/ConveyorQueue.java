@@ -107,4 +107,10 @@ public class ConveyorQueue<T> implements IConveyorQueue<T>, Serializable {
 		
 		return -1;
 	}
+
+	@Override
+	public boolean isFull() {
+	
+		return this.count >= this.queue.length;
+	}
 }

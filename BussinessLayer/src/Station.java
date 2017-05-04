@@ -1,7 +1,7 @@
 
 
 
-public abstract class Station {
+public abstract class Station implements Runnable{
 	
 	
 	public Station(){

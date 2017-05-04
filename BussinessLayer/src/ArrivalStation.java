@@ -5,12 +5,14 @@ public class ArrivalStation extends Station {
 	private Truck truck;
 	private ArrayList<Box> boxes;
 	private ArrayList<Palette> palettes;
+	private IWorkerController worker;
 
-	public ArrivalStation(Truck truck) {
+	public ArrivalStation(Truck truck, IWorkerController worker) {
 		super();
 		this.truck = truck;
 		this.boxes = new ArrayList<>();
 		this.palettes = new ArrayList<>();
+		this.worker = worker;
 	}
 
 	@Override
@@ -20,6 +22,7 @@ public class ArrivalStation extends Station {
 
 		for (int i = 0; i < unloaded.length; i++) {
 			if (unloaded[i] != null) {
+				unloaded[i].getBox(i).setArrivingBox(true);
 				palettes.add(unloaded[i]);
 			}
 		}
@@ -65,6 +68,24 @@ public class ArrivalStation extends Station {
 	@Override
 	public void loadCargo() {
 		//nothing here
+		
+	}
+
+	@Override
+	public void run() {
+
+
+		for(int i = 0; i < this.palettes.size();i++){
+			for (int j = 0; j < this.palettes.get(i).getBoxes().length; j++) {
+				this.palettes.get(i).getBox(j).setArrivingBox(true);
+				this.worker.putOnBelt(this.palettes.get(i).getBox(j));
+				try {
+					Thread.sleep(2500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		
 	}
 

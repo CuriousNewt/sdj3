@@ -5,14 +5,17 @@ public class DepartureStation extends Station {
 	private Truck truck;
 	private ArrayList<Box> boxes;
 	private ArrayList<Palette> palettes;
+	private IConveyorQueue<Box> queue;
+	private IWorkerController worker;
 
 	public DepartureStation(Truck truck, ArrayList<Box> boxes,
-			ArrayList<Palette> palettes) {
+			ArrayList<Palette> palettes, IConveyorQueue<Box> queue, IWorkerController worker) {
 		super();
 		this.truck = truck;
 		this.boxes = boxes;
 		this.palettes = palettes;
-
+		this.queue = queue;
+		this.worker = worker;
 	}
 
 	@Override
@@ -50,40 +53,6 @@ public class DepartureStation extends Station {
 		if (!checkTruckSpace()) {
 			return;
 		}
-
-		//int index = 0;
-
-		/*
-		 * for (int i = 0; i < palettes.size(); i++) { for (int j = 0; j <
-		 * truck.getPalletes().length; j++) { if(palettes.get(i) != null){
-		 * if(checkTruckSpace()){ if(isPalletFull(truck.getPalette(index))){
-		 * index++; } if(!isPalletFull(truck.getPalette(index))){
-		 * this.truck.loadAPalette(palettes.get(j)); this.palettes.remove(i); }
-		 * } } } }
-		 */
-
-		/*for (int i = 0; i < palettes.size(); i++) {
-			for (int j = 0; j < truck.getPalletes().length; j++) {
-				while (!truck.getPalette(j).isFull()) {
-					if (palettes.get(i) != null) {
-						if (checkTruckSpace()) {
-							this.truck.getPalette(j)
-									.transferBox(makeAPalette());
-						}
-					}
-				}
-				if (checkTruckSpace()) {
-					if (truck.getPalette(j).isFull()) {
-						this.truck.loadAPalette(palettes.get(j));
-						this.palettes.remove(i);
-					}
-				}
-			}
-		}*/
-
-		
-		
-
 		// 1st case check all nonfull palettes, fill them with boxes until they
 		// are full at the station and load them to the truck
 		for (int i = 0; i < palettes.size(); i++) {
@@ -91,7 +60,7 @@ public class DepartureStation extends Station {
 				if (!palettes.get(i).isFull()) {
 					if (isEnoughBoxes()) {
 						palettes.get(i).transfer(boxes.get(j));
-						this.boxes.remove(j);
+						this.boxes.remove(j); //could be problematic
 					}
 				}
 			}
@@ -104,10 +73,8 @@ public class DepartureStation extends Station {
 				/*this.palettes.remove(i);*/
 			}
 		}
-
-		/*
-		 * if (checkTruckSpace()) { this.truck.loadAPalette(makeAPalette()); }
-		 */
+		
+		this.palettes.clear();
 	}
 
 	private boolean isEnoughBoxes() {
@@ -118,6 +85,39 @@ public class DepartureStation extends Station {
 	private boolean checkTruckSpace() {
 
 		return this.truck.getActualCount() < this.truck.getCountOfPalettes();
+	}
+
+	@Override
+	public void run() {
+		
+		while(true){
+			
+			if(this.truck.isFull()){
+				System.out.println("Truck is leaving....");
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.truck = new Truck();
+			}
+			
+			if(!this.queue.first().arrivingBox){
+				Box box = this.worker.takeFromBelt();
+				//this.boxes.add(box);
+				this.truck.loadABox(box);
+				
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		
 	}
 
 }

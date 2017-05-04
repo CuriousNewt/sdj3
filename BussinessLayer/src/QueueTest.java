@@ -17,6 +17,7 @@ public class QueueTest {
 		q.enqueue("pica");
 		System.out.println(q.toString());
 		System.out.println(q.size());
+		System.out.println("First is: " + q.first());
 	}
 
 }
