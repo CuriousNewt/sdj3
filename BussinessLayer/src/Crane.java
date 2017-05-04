@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 
-public class Crane implements IRmiClient,Runnable{
+public class Crane extends UnicastRemoteObject implements IRmiClient,Runnable{
  
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
@@ -16,7 +16,7 @@ public class Crane implements IRmiClient,Runnable{
 	protected Crane(IConveyorQueue<Box> queue) throws RemoteException {
 		super();
 		try {
-			UnicastRemoteObject.exportObject(this,0);
+			//UnicastRemoteObject.exportObject(this,0);
 			databaseAdapter = (IRmiServer) Naming.lookup("rmi://localhost:1099/RMI");
 			databaseAdapter.registerClient(this);
 			this.queue = queue;
