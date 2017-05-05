@@ -89,7 +89,9 @@ public class Crane extends UnicastRemoteObject implements IRmiClient,Runnable{
 	public void run() {
 		
 		while(true){
+			//System.out.println(this.queue.first().arrivingBox);
 			if(this.queue.first() != null && this.queue.first().arrivingBox){
+				
 				try {
 					Box box = this.controller.getBoxFromBelt();
 					System.out.println("THIS IS BOX: " + box.toString());

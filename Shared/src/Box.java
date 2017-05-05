@@ -18,7 +18,7 @@ public class Box implements Serializable{
 		return arrivingBox;
 	}
 
-	public void setArrivingBox(boolean arrivingBox) {
+	public synchronized void setArrivingBox(boolean arrivingBox) {
 		this.arrivingBox = arrivingBox;
 	}
 

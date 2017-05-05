@@ -9,7 +9,7 @@ public class QueueTest {
 		q.enqueue(4);
 		q.enqueue(5);
 
-		q.print();
+		System.out.println(q.toString());
 		int returned = q.dequeue();
 		System.out.println();
 		System.out.println();

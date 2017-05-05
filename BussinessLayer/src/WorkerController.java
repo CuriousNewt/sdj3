@@ -41,9 +41,10 @@ public class WorkerController implements IWorkerController{
 				e.printStackTrace();
 			}
 		}
-		System.out.println(Thread.currentThread().getName() + " grabbed a box from the belt.");
+		Box box = this.queue.dequeue();
+	    System.out.println(Thread.currentThread().getName() + " grabbed a box from the belt ---\n" + box.toString());
 		notifyAll();
-		return this.queue.dequeue();
+		return box;
 	}
 
 

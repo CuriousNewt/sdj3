@@ -93,7 +93,7 @@ public class DepartureStation extends Station {
 		while(true){
 			
 			
-			if(!this.queue.first().arrivingBox){
+			if(this.queue.first() != null && !this.queue.first().arrivingBox){
 				Box box = this.worker.takeFromBelt();
 				//this.boxes.add(box);
 				this.truck.loadABox(box);
