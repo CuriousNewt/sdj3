@@ -5,12 +5,15 @@ public class Truck {
 
 	public Truck() {
 		this.palettes = new Palette[3];
+		for (int i = 0; i < palettes.length; i++) {
+			this.palettes[i] = new Palette();
+		}
 		this.index = 0;
 	}
 
-	public void loadABox(Box box){
-		for (int i = 0; i < palettes.length; i++) {
-			if(!palettes[i].isFull()){
+	public void loadABox(Box box) {
+		for (int i = 0; i < index; i++) {
+			if (!palettes[i].isFull()) {
 				palettes[i].addBoxToPalette(box);
 			}
 		}
@@ -30,9 +33,22 @@ public class Truck {
 	}
 
 	private Palette[] copy(Palette[] p) {
+		
+	/*	int count = 0;
+		for (int i = 0; i < p.length; i++) {
+			for (int j = 0; j < p[i].getBoxes().length; j++) {
+				if(p[i].getBox(j) != null){
+					count++;
+				}
+			}
+		}*/
+		
+	
 		Palette[] toReturn = new Palette[p.length];
 		for (int i = 0; i < p.length; i++) {
-			toReturn[i] = p[i];
+			if (p[i] != null) {
+				toReturn[i] = p[i];
+			}
 		}
 		return toReturn;
 	}
@@ -64,14 +80,14 @@ public class Truck {
 			System.out.println(i + " " + palettes[i]);
 		}
 	}
-	
-	public boolean isFull(){
+
+	public boolean isFull() {
 		for (int i = 0; i < palettes.length; i++) {
-			if(!palettes[i].isFull()){
+			if (!palettes[i].isFull()) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 

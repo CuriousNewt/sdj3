@@ -13,5 +13,6 @@ public abstract class Station implements Runnable{
 	public abstract void getAndUnloadCargo();
 	public abstract void extractAllPalettes();
 	public abstract void print(); //test method
+	public abstract void checkBoolean();
 
 }

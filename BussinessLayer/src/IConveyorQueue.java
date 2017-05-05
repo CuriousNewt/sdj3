@@ -6,4 +6,5 @@ public interface IConveyorQueue<T> {
 	public boolean isEmpty();
 	public int size();
 	public boolean isFull();
+	public void print();
 }

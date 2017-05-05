@@ -20,6 +20,7 @@ public  class CraneController implements ICraneController{
 				e.printStackTrace();
 			}
 		}
+		System.out.println("YOU SON OF A BITCH");
 		System.out.println(Thread.currentThread().getName() + " grabbed a box from the belt.");
 		notifyAll();
 		return this.queue.dequeue();
@@ -37,6 +38,7 @@ public  class CraneController implements ICraneController{
 				e.printStackTrace();
 			}
 		}
+		System.out.println("YOU SON OF A BITCH1");
 		System.out.println(Thread.currentThread().getName() + " put a box on the belt." + "--- Box: " + element.toString());
 		this.queue.enqueue(element);
 		notifyAll();

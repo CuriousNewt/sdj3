@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 public class ConveyorQueue<T> implements IConveyorQueue<T>, Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 	private int front;
 	private int count;
@@ -23,10 +23,10 @@ public class ConveyorQueue<T> implements IConveyorQueue<T>, Serializable {
 
 	public void enqueue(T element) throws IllegalStateException,
 			IllegalArgumentException {
-		if (this.count == this.queue.length){
+		if (this.count == this.queue.length) {
 			throw new IllegalStateException("The queue is full");
 		}
-		if (element == null){
+		if (element == null) {
 			throw new IllegalArgumentException(
 					"Null elements are not allowed in the queue");
 		}
@@ -36,31 +36,51 @@ public class ConveyorQueue<T> implements IConveyorQueue<T>, Serializable {
 	}
 
 	public T dequeue() throws IllegalStateException {
-		if (this.count == 0){
+		if (this.count == 0) {
 			throw new IllegalStateException("The queue is empty");
 		}
 		T temp = this.queue[this.front];
 		this.queue[this.front] = null;
 		this.count--;
+		int lol = 0;
 
-		if (this.front == this.queue.length - 1) {
-			this.front = 0;
-		} else {
-			this.front++;
+		for (int i = 1; i < queue.length - 1; i++) {
+			if (this.queue[i] != null) {
+					T temp1 = this.queue[front + i];
+					this.queue[front + lol] = temp1;
+					lol++;
+					if (this.queue[i + 1] == null) {
+						this.queue[i] = null;
+					}
+				
+			}
+			if (this.queue[i] == null) {
+
+				break;
+			}
 		}
+
+		/*
+		 * if (this.front == this.queue.length - 1) { this.front = 0; } else {
+		 * this.front++; }
+		 */
+
 		return temp;
 	}
 
 	public T first() throws IllegalStateException {
-		if (this.count == 0){
+		/*if (this.count == 0) {
 			throw new IllegalStateException("The queue is empty");
+		}*/
+		if(this.queue[this.front] == null){
+			return null;
 		}
 		return this.queue[this.front];
 	}
 
 	public int indexOf(T element) {
 		for (int i = this.front; i < this.count; i++) {
-			if (this.queue[i].equals(element)){
+			if (this.queue[i].equals(element)) {
 				return i;
 			}
 		}
@@ -88,29 +108,37 @@ public class ConveyorQueue<T> implements IConveyorQueue<T>, Serializable {
 		s += "}";
 		return s;
 	}
-	
-	private int findFirstElement(){
-		for(int i = 0; i < this.queue.length; i++){ 
-			if(this.queue[i] != null){
+
+	private int findFirstElement() {
+		for (int i = 0; i < this.queue.length; i++) {
+			if (this.queue[i] != null) {
 				return i;
 			}
 		}
 		return -1;
 	}
-	
-	private int findLastElement(){
-		for (int i = this.queue.length-1; i >=  findFirstElement(); i--) {
-			if(this.queue[i] != null){
+
+	private int findLastElement() {
+		for (int i = this.queue.length - 1; i >= findFirstElement(); i--) {
+			if (this.queue[i] != null) {
 				return i;
 			}
 		}
-		
+
 		return -1;
 	}
 
 	@Override
 	public boolean isFull() {
-	
+
 		return this.count >= this.queue.length;
+	}
+
+	@Override
+	public void print() {
+
+		for (int i = 0; i < queue.length; i++) {
+			System.out.print(this.queue[i] + "/");
+		}
 	}
 }

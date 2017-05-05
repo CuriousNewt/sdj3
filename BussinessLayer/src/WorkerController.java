@@ -23,7 +23,7 @@ public class WorkerController implements IWorkerController{
 				e.printStackTrace();
 			}
 		}
-		System.out.println(Thread.currentThread().getName() + " put a box on the belt." + "--- Box: " + element.toString());
+		System.out.println(Thread.currentThread().getName() + " put a box on the belt." + "---\nBox: " + element.toString());
 		this.queue.enqueue(element);
 		notifyAll();
 		

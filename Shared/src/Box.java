@@ -14,7 +14,7 @@ public class Box implements Serializable{
 		this.arrivingBox = false;
 	}
 	
-	public boolean isArrivingBox() {
+	public synchronized boolean isArrivingBox() {
 		return arrivingBox;
 	}
 

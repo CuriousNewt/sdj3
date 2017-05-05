@@ -92,16 +92,6 @@ public class DepartureStation extends Station {
 		
 		while(true){
 			
-			if(this.truck.isFull()){
-				System.out.println("Truck is leaving....");
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				this.truck = new Truck();
-			}
 			
 			if(!this.queue.first().arrivingBox){
 				Box box = this.worker.takeFromBelt();
@@ -115,8 +105,26 @@ public class DepartureStation extends Station {
 					e.printStackTrace();
 				}
 			}
+			
+
+			if(this.truck.isFull()){
+				System.out.println("Truck is leaving....");
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.truck = new Truck();
+			}
 		}
 		
+		
+	}
+
+	@Override
+	public void checkBoolean() {
+		// TODO Auto-generated method stub
 		
 	}
 

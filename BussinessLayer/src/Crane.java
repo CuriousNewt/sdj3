@@ -7,14 +7,14 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class Crane extends UnicastRemoteObject implements IRmiClient,Runnable{
  
-	@SuppressWarnings("unused")
+
 	private static final long serialVersionUID = 1L;
 	private IRmiServer databaseAdapter;
 	private IConveyorQueue<Box> queue;
 	private ICraneController controller;
 	private Thread thread;
 
-	protected Crane(IConveyorQueue<Box> queue) throws RemoteException {
+	public Crane(IConveyorQueue<Box> queue) throws RemoteException {
 		super();
 		try {
 			//UnicastRemoteObject.exportObject(this,0);
@@ -87,11 +87,13 @@ public class Crane extends UnicastRemoteObject implements IRmiClient,Runnable{
 
 	@Override
 	public void run() {
-	System.out.println("IT WORKS");
+		
 		while(true){
-			if(this.queue.first().arrivingBox){
+			if(this.queue.first() != null && this.queue.first().arrivingBox){
 				try {
-					this.sendOrderToWarehouse(this.controller.getBoxFromBelt());
+					Box box = this.controller.getBoxFromBelt();
+					System.out.println("THIS IS BOX: " + box.toString());
+					this.sendOrderToWarehouse(box);
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
