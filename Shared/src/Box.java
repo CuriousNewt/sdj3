@@ -40,7 +40,7 @@ public class Box implements Serializable{
 	
 	public String toString(){
 		
-		return "Item name: " + itemName + "\nItem type: " + itemType;
+		return "Item name: " + itemName + "\nItem type: " + itemType + "\nArriving box: " + this.arrivingBox;
 	}
 
 }

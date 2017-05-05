@@ -24,6 +24,7 @@ public class WorkerController implements IWorkerController{
 			}
 		}
 		System.out.println(Thread.currentThread().getName() + " put a box on the belt." + "---\nBox: " + element.toString());
+		System.out.println("THIS IS PUTONBELT METHOD: " + this.queue.size());
 		this.queue.enqueue(element);
 		notifyAll();
 		
@@ -43,6 +44,7 @@ public class WorkerController implements IWorkerController{
 		}
 		Box box = this.queue.dequeue();
 	    System.out.println(Thread.currentThread().getName() + " grabbed a box from the belt ---\n" + box.toString());
+		System.out.println("THIS IS TAKEFROMBELT METHOD: " + this.queue.size());
 		notifyAll();
 		return box;
 	}

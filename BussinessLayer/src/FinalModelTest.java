@@ -8,13 +8,13 @@ public class FinalModelTest {
 
 	public static void main(String[] args) {
 		try {
-			Box box = new Box("1","1");
+		/*	Box box = new Box("1","1");
 			box.setArrivingBox(true);
 			queue.enqueue(box);
 			queue.enqueue(new Box("2","2"));
 			queue.enqueue(new Box("3","3"));
 			queue.enqueue(new Box("4","4"));
-			queue.enqueue(new Box("5","5"));
+			queue.enqueue(new Box("5","5"));*/
 			
 			
 			
@@ -59,6 +59,12 @@ public class FinalModelTest {
 			Thread depSThread = new Thread(depS,depC.getTag());
 			
 			//exporting.print();
+			
+		/*	ArrayList<Palette> temp = arrS.getArrayList();
+			
+			for (int i = 0; i < temp.size(); i++) {
+				System.out.println(temp.get(i).toString());
+			}*/
 
 			arrSThread.start();
 			depSThread.start();

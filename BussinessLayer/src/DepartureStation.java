@@ -128,4 +128,10 @@ public class DepartureStation extends Station {
 		
 	}
 
+	@Override
+	public ArrayList<Palette> getArrayList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

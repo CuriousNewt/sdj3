@@ -8,28 +8,35 @@ public class QueueTest {
 		q.enqueue(3);
 		q.enqueue(4);
 		q.enqueue(5);
-
-		System.out.println(q.toString());
-		int returned = q.dequeue();
-		System.out.println();
-		System.out.println();
-
-		q.print();
-		
-		System.out.println();
 		
 		q.dequeue();
+		System.out.println("After first dequeue: " + q.size());
+		System.out.println();
+		
+	
 		q.print();
-		System.out.println(q.first());
+		
 		q.dequeue();
+		System.out.println("\nAfter second dequeue: " +q.size());
 		q.print();
-		System.out.println(q.first());
+		//System.out.println(q.first());
+		
 		q.dequeue();
+		System.out.println("\nAfter third dequeue: " +q.size());
 		q.print();
-		System.out.println(q.first());
+		//System.out.println(q.first());
+		q.enqueue(9);
+		System.out.println("\nAfter enquing 9: " +q.size());
+	
 		q.dequeue();
+		System.out.println("\nAfter fourth dequeue: " +q.size());
 		q.print();
-		System.out.println(q.first());
+		//System.out.println(q.first());
+		q.dequeue();
+		System.out.println("\nAfter fifth dequeue: " +q.size());
+		
+		q.print();
+		//System.out.println(q.first());
 	}
 
 }

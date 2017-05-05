@@ -104,6 +104,7 @@ public class ArrivalStation extends Station {
 					this.palettes.get(i).getBox(j).setArrivingBox(true);
 
 					this.worker.putOnBelt(this.palettes.get(i).getBox(j));
+					
 				}
 				try {
 					Thread.sleep(2500);
@@ -127,6 +128,12 @@ public class ArrivalStation extends Station {
 			}
 		}
 
+	}
+
+	@Override
+	public ArrayList<Palette> getArrayList() {
+		// TODO Auto-generated method stub
+		return this.palettes;
 	}
 
 }
