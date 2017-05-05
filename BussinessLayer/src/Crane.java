@@ -12,6 +12,7 @@ public class Crane extends UnicastRemoteObject implements IRmiClient,Runnable{
 	private IRmiServer databaseAdapter;
 	private IConveyorQueue<Box> queue;
 	private ICraneController controller;
+	private Thread thread;
 
 	protected Crane(IConveyorQueue<Box> queue) throws RemoteException {
 		super();
@@ -21,6 +22,8 @@ public class Crane extends UnicastRemoteObject implements IRmiClient,Runnable{
 			databaseAdapter.registerClient(this);
 			this.queue = queue;
 			this.controller = new CraneController(this.queue);
+			this.thread = new Thread(this,"Crane");
+			this.thread.start();
 		
 		} catch (MalformedURLException | NotBoundException e) {
 			// TODO Auto-generated catch block
@@ -84,7 +87,7 @@ public class Crane extends UnicastRemoteObject implements IRmiClient,Runnable{
 
 	@Override
 	public void run() {
-	
+	System.out.println("IT WORKS");
 		while(true){
 			if(this.queue.first().arrivingBox){
 				try {
