@@ -1,3 +1,5 @@
+import src.Box;
+
 public class Truck {
 
 	private Palette[] palettes;

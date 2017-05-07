@@ -1,3 +1,5 @@
+import src.Box;
+
 public class Palette {
 	private Box[] boxes;
 	private final int maxNumberOfBoxes = 2;

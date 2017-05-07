@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import src.Box;
+
 public class DepartureStation extends Station {
 
 	private Truck truck;

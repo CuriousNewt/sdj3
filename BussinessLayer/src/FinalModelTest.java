@@ -1,6 +1,8 @@
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import src.Box;
+
 
 public class FinalModelTest {
 	

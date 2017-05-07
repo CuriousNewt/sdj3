@@ -1,3 +1,4 @@
+import src.Box;
 
 public interface IDatabaseAdapter {
 	
@@ -8,4 +9,5 @@ public interface IDatabaseAdapter {
 	public void removeBox(Box box);
 
 	public void viewAllBoxes(String itemName);
+	//kokotina
 }

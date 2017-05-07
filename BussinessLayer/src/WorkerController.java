@@ -1,3 +1,4 @@
+import src.Box;
 
 public class WorkerController implements IWorkerController{
 	
@@ -58,6 +59,9 @@ public class WorkerController implements IWorkerController{
 	public synchronized String getTag() {
 		return tag;
 	}
+
+
+
 
 
 

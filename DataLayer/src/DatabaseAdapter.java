@@ -6,6 +6,10 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import src.Box;
+import src.IRmiClient;
+import src.IRmiServer;
+
 
 public class DatabaseAdapter extends UnicastRemoteObject implements IDatabaseAdapter,IRmiServer{
 	

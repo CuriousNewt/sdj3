@@ -4,6 +4,10 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import src.Box;
+import src.IRmiClient;
+import src.IRmiServer;
+
 
 public class Crane extends UnicastRemoteObject implements IRmiClient,Runnable{
  
